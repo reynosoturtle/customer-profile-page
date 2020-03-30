@@ -4,6 +4,35 @@
   </div>
 </template>
 
+<script>
+import CustomerApi from "@/mixins/CustomerApi";
+
+export default {
+  name: "Name",
+  components: {},
+  mixins: [CustomerApi],
+  props: {},
+  data() {
+    return {};
+  },
+  computed: {},
+  watch: {},
+
+  // Lifecycle Hooks
+  beforeCreate() {},
+  created() {},
+  beforeMount() {},
+  mounted() {
+    this.fetchSampleUser();
+  },
+  beforeUpdate() {},
+  updated() {},
+  beforeDestroy() {},
+  destroyed() {},
+  methods: {}
+};
+</script>
+
 <style lang="scss">
 @import "assets/styles/tailwind.postcss";
 
@@ -27,3 +56,4 @@ body {
   }
 }
 </style>
+

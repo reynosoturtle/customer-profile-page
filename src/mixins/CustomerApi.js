@@ -10,7 +10,7 @@ export default {
                 this.$customerAxios.get('/sample_customer')
                     .then(
                         response => {
-                            console.log(response.data)
+                            // console.log(response.data)
                             resolve(response.data)
                         },
                         error => {

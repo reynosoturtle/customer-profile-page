@@ -1,21 +1,39 @@
 <template>
   <div id="app">
-    <router-view />
+    <template v-if="loading === false">
+      <navbar :active-link="activeLink" />
+      <router-view v-if="loading === false" />
+    </template>
+      <div v-else class="flex h-screen">
+        <p class="text-green-500 text-center m-auto">
+          <i class="fas fa-circle-notch fa-spin fa-5x"/>
+          <br>
+          Loading...
+        </p>
+      </div>
   </div>
 </template>
 
 <script>
 import CustomerApi from "@/mixins/CustomerApi";
+import { mapActions, mapState, mapMutations } from "vuex";
+import Navbar from "@/components/Navbar";
 
 export default {
-  name: "Name",
-  components: {},
+  name: "App",
+  components: {
+    Navbar
+  },
   mixins: [CustomerApi],
   props: {},
   data() {
-    return {};
+    return {
+      activeLink: "profile"
+    };
   },
-  computed: {},
+  computed: {
+    ...mapState(["loading"])
+  },
   watch: {},
 
   // Lifecycle Hooks
@@ -23,13 +41,23 @@ export default {
   created() {},
   beforeMount() {},
   mounted() {
-    this.fetchSampleUser();
+    this.initialize();
   },
   beforeUpdate() {},
   updated() {},
   beforeDestroy() {},
   destroyed() {},
-  methods: {}
+  methods: {
+    ...mapMutations(["setLoading"]),
+    ...mapActions(["updateUserProfile"]),
+
+    initialize() {
+      this.setLoading(true);
+      this.fetchSampleUser()
+        .then(this.updateUserProfile, console.log)
+        .finally(() => this.setLoading(false));
+    }
+  }
 };
 </script>
 
@@ -40,20 +68,6 @@ body {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
 }
 </style>
 

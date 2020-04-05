@@ -54,7 +54,7 @@ export default {
     initialize() {
       this.setLoading(true);
       this.fetchSampleUser()
-        .then(this.updateUserProfile, console.log)
+        .then(this.updateUserProfile)
         .finally(() => this.setLoading(false));
     }
   }

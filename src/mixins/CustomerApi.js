@@ -14,7 +14,8 @@ export default {
                             resolve(response.data)
                         },
                         error => {
-                            console.log('Failed to fetch sample user', error)
+                            // Build requires no console.log
+                            // console.log('Failed to fetch sample user', error)
                             reject(error)
                         }
                     )
